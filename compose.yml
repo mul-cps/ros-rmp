@@ -1,0 +1,67 @@
+services:
+  # Base image containing dependencies.
+  base:
+    image: ghcr.io/bjoernellens1/ros_rmp/rmp:base
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      tags:
+        - ghcr.io/bjoernellens1/ros_rmp/rmp:base
+      args:
+        ROS_DISTRO: noetic
+      target: base
+      x-bake:
+        platforms:
+          #- linux/arm64
+          - linux/amd64
+    # Interactive shell
+    stdin_open: true
+    tty: true
+    # Networking and IPC for ROS 2
+    network_mode: host
+    ipc: host
+    # Needed to display graphical applications
+    environment:
+      # Allows graphical programs in the container.
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      # Allows graphical programs in the container.
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTHORITY:-$HOME/.Xauthority}:/root/.Xauthority
+    restart: no
+    ulimits:
+      nofile:
+        soft: "65536"
+        hard: "65536"
+
+    # lidar
+  lidar:
+    extends: base
+    # depends_on:
+    #   - lidar_filter
+    command: >
+      roslaunch rplidar_ros rplidar_a2m8.launch
+    devices:
+      - /dev/rplidar:/dev/ttyUSB0 #udevrules needed for this to work:
+      # file /etc/udev/rules.d/98-rplidar.rules
+#       SUBSYSTEM=="tty", ATTRS{serial}=="3453995662b3af4f81f4a69eba5f3f29", SYMLINK+="rplidar", MODE="0666"
+    restart: unless-stopped
+
+  master:
+    extends: base
+    command: >
+      roscore
+
+  segway:
+    extends: base
+    devices:
+      - /dev/segway:/dev/ttyUSB0 #udevrules needed for this to work:
+      # file /etc/udev/rules.d/99-segway.rules
+#       SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", ATTRS{serial}=="0001", SYMLINK+="segway", MODE="0666"
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      rosrun segwayrmp SmartCar"
+    restart: unless-stopped
