@@ -119,7 +119,8 @@ RUN echo "ROS_DISTRO=${ROS_DISTRO}" && echo "UNDERLAY_WS=${UNDERLAY_WS}"
 RUN apt update && apt install -y \
     git \
     ros-${ROS_DISTRO}-rplidar-ros \
-    ros-${ROS_DISTRO}-tf && \
+    ros-${ROS_DISTRO}-tf \
+    ros-${ROS_DISTRO}-teleop-twist-joy && \
     echo "Dependencies installed successfully."
 
 # Clone repository and build workspace
@@ -135,6 +136,13 @@ RUN mkdir -p src && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segway_msgs' && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segwayrmp' && \
     echo "Workspace built successfully."
+
+# Copy rmp220_middleware package
+COPY ./src/packages/rmp220_middleware src/
+
+# Build package
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
+    catkin_make
 
 # Copy entrypoint script
 COPY ./docker/entrypoint.sh /

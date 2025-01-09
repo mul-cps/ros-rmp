@@ -65,3 +65,20 @@ services:
       source /rmp_ws/devel/setup.bash &&
       rosrun segwayrmp SmartCar"
     restart: unless-stopped
+
+  teleop:
+    extends: base
+    devices:
+      - /dev/input/js0:/dev/input/js0
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      roslaunch rmp220_middleware teleop.launch"
+    restart: unless-stopped
+
+  testing:
+    extends: base
+    volumes:
+      - ./src:/test_ws/src
+    command: >
+      /bin/bash
