@@ -12,7 +12,6 @@ services:
       target: base
       x-bake:
         platforms:
-          #- linux/arm64
           - linux/amd64
     # Interactive shell
     stdin_open: true
@@ -39,7 +38,7 @@ services:
     # lidar
   lidar:
     extends: base
-    # depends_on:
+    # depends_on_on:
     #   - lidar_filter
     command: >
       roslaunch rplidar_ros rplidar_a2m8.launch
@@ -75,6 +74,21 @@ services:
       source /rmp_ws/devel/setup.bash &&
       roslaunch rmp220_middleware teleop.launch"
     restart: unless-stopped
+
+  slam:
+    extends: base
+    depends_on:
+      - segway
+      - lidar
+      
+  description:
+    extends: base
+
+  navigation:
+    extends: base
+    depends_on:
+      - description
+      - slam
 
   testing:
     extends: base
