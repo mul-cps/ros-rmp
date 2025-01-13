@@ -20,7 +20,7 @@ WORKDIR ${UNDERLAY_WS}
 RUN echo "ROS_DISTRO=${ROS_DISTRO}" && echo "UNDERLAY_WS=${UNDERLAY_WS}"
 
 # Install dependencies
-RUN apt update && apt install -y \
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
     git \
     ros-${ROS_DISTRO}-rplidar-ros \
     ros-${ROS_DISTRO}-tf \
