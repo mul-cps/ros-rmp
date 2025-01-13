@@ -25,9 +25,9 @@ RUN apt update && apt install -y \
     ros-${ROS_DISTRO}-rplidar-ros \
     ros-${ROS_DISTRO}-tf \
     ros-${ROS_DISTRO}-teleop-twist-joy \
-    ros-${ROS_DISTRO}-rqt-tf-tree && \
-    ros-${ROS_DISTRO}-rviz && \
-    ros-${ROS_DISTRO}-rqt* \
+    ros-${ROS_DISTRO}-rqt-tf-tree \
+    ros-${ROS_DISTRO}-rviz* \
+    ros-${ROS_DISTRO}-rqt* && \
     echo "Dependencies installed successfully."
 
 # Clone repository and build workspace
