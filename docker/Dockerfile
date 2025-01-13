@@ -27,6 +27,9 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-rec
     ros-${ROS_DISTRO}-teleop-twist-joy \
     ros-${ROS_DISTRO}-rqt-tf-tree \
     ros-${ROS_DISTRO}-rviz* \
+    ros-${ROS_DISTRO}-robot-state-publisher \
+    ros-${ROS_DISTRO}-joint-state-publisher \
+    ros-${ROS_DISTRO}-xacro \
     ros-${ROS_DISTRO}-rqt* && \
     echo "Dependencies installed successfully."
 
