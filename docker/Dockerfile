@@ -74,11 +74,11 @@ WORKDIR ${UNDERLAY_WS}
 # Debug: Verify ENV values in navigation stage
 RUN echo "ROS_DISTRO=${ROS_DISTRO}" && echo "UNDERLAY_WS=${UNDERLAY_WS}"
 
-# Create a ROS package
-RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
-    echo "Creating ROS package in ${UNDERLAY_WS}" && \
-    catkin_create_pkg segway_rmp_2dnav move_base segway_rmp_tf_configuration_dep segway_rmp_odom_configuration_dep segway_rmp_sensor_configuration_dep && \
-    echo "ROS package created successfully."
+# # Create a ROS package
+# RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
+#     echo "Creating ROS package in ${UNDERLAY_WS}" && \
+#     catkin_create_pkg segway_rmp_2dnav move_base segway_rmp_tf_configuration_dep segway_rmp_odom_configuration_dep segway_rmp_sensor_configuration_dep && \
+#     echo "ROS package created successfully."
 
 # Use the same entrypoint
 ENTRYPOINT [ "/entrypoint.sh" ]
