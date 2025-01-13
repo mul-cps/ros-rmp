@@ -98,3 +98,10 @@ services:
       - ./src:/test_ws/src
     command: >
       /bin/bash
+
+  rviz:
+    extends: base
+    command: >
+      rviz
+    devices:
+      - /dev/dri:/dev/dri
