@@ -92,10 +92,10 @@ services:
       - description
       - slam
 
-  testing:
+  debug:
     extends: base
     volumes:
-      - ./src:/test_ws/src
+      - ./src:/debug_ws/src
     command: >
       /bin/bash
 
