@@ -43,6 +43,7 @@ RUN mkdir -p src && \
     echo "Building workspace in ${UNDERLAY_WS}" && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segway_msgs' && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segwayrmp' && \
+    catkin_make && \
     echo "Workspace built successfully."
 
 # Copy rmp220_middleware package
