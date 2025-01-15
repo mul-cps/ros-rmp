@@ -89,14 +89,14 @@ services:
       source /rmp_ws/devel/setup.bash &&
       rosrun gmapping slam_gmapping scan:=scan base_frame:=base_link odom_frame:=odom"
 
-  navigation:
+  move_base:
     extends: base
     depends_on:
       - rsp
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      rosrun move_base move_base"
+      roslaunch cps_rmp220_support move_base.launch"
 
   debug:
     extends: base
@@ -107,10 +107,10 @@ services:
 
   rviz:
     extends: base
-    command: >
-      rviz
     devices:
       - /dev/dri:/dev/dri
+    command: >
+      roslaunch cps_rmp220_support nav_rviz_view.launch
 
   rsp:
     extends: base
@@ -118,3 +118,19 @@ services:
       bash -c "
       source /rmp_ws/devel/setup.bash &&
       roslaunch cps_rmp220_support rsp.launch"
+  
+  pose_ekf:
+    extends: base
+    depends_on:
+      - segway
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      roslaunch cps_rmp220_support robot_pose_ekf.launch"
+
+  lidar_filter:
+    extends: base
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      roslaunch rmp220_middleware robot_scan_filter.launch"
