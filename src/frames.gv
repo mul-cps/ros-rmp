@@ -2,12 +2,13 @@ digraph G {
 "base_link" -> "base_footprint"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
 "chassis" -> "caster_wheel"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
 "base_link" -> "chassis"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
-"chassis" -> "imu"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
+"chassis" -> "robot_imu"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
 "chassis" -> "laser"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10000.0\nBuffer length: 0.0\nMost recent transform: 0.0\nOldest transform: 0.0\n"];
-"chassis" -> "left_wheel"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1736769300.517\nOldest transform: 1736769295.617\n"];
-"chassis" -> "right_wheel"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1736769300.517\nOldest transform: 1736769295.617\n"];
+"map" -> "odom"[label=" Broadcaster: /slam_gmapping\nAverage rate: 20.202\nBuffer length: 4.95\nMost recent transform: 1736777200.429\nOldest transform: 1736777195.479\n"];
+"chassis" -> "left_wheel"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1736777200.37\nOldest transform: 1736777195.47\n"];
+"chassis" -> "right_wheel"[label=" Broadcaster: /robot_state_publisher\nAverage rate: 10.204\nBuffer length: 4.9\nMost recent transform: 1736777200.37\nOldest transform: 1736777195.47\n"];
 edge [style=invis];
  subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 1736769300.6193929"[ shape=plaintext ] ;
-}->"base_link";
+"Recorded at time: 1736777200.4015903"[ shape=plaintext ] ;
+}->"map";
 }

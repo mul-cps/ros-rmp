@@ -34,6 +34,8 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-rec
     ros-${ROS_DISTRO}-gmapping \
     ros-${ROS_DISTRO}-xacro \
     ros-${ROS_DISTRO}-tf2-tools \
+    ros-${ROS_DISTRO}-navigation \
+    ros-${ROS_DISTRO}-move-base \
     ros-${ROS_DISTRO}-rqt* && \
     echo "Dependencies installed successfully."
 
@@ -50,11 +52,12 @@ RUN mkdir -p src && \
     echo "Building workspace in ${UNDERLAY_WS}" && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segway_msgs' && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segwayrmp' && \
+    catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' && \
     catkin_make && \
     echo "Workspace built successfully."
 
 # Copy rmp220_middleware package
-COPY ./src/packages/rmp220_middleware src/
+COPY ./src/packages/rmp220_middleware src/rmp220_middleware
 
 # Build package
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
