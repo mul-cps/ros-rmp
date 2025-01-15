@@ -36,6 +36,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-rec
     ros-${ROS_DISTRO}-tf2-tools \
     ros-${ROS_DISTRO}-navigation \
     ros-${ROS_DISTRO}-move-base \
+    ros-${ROS_DISTRO}-twist-mux \
     ros-${ROS_DISTRO}-rqt* && \
     echo "Dependencies installed successfully."
 
@@ -45,6 +46,7 @@ RUN mkdir -p src && \
     echo "Cloning repository into $(pwd)" && \
     git clone https://github.com/bjoernellens1/catkin_ws_for_RMP.git && \
     git clone https://github.com/bjoernellens1/cps_rmp220_support -b ${ROS_DISTRO} && \
+    git clone https://github.com/bjoernellens1/rmp220_middleware.git -b ${ROS_DISTRO} && \
     mv catkin_ws_for_RMP/RMP1.0_catkin_ws . && \
     rm -rf catkin_ws_for_RMP && \
     cd .. && \
@@ -53,16 +55,17 @@ RUN mkdir -p src && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segway_msgs' && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='segwayrmp' && \
     catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' && \
+    catkin_make -DCATKIN_WHITELIST_PACKAGES='rmp220_middleware' && \
     catkin_make && \
     echo "Workspace built successfully."
 
 # Copy rmp220_middleware package
-COPY ./src/packages/rmp220_middleware src/rmp220_middleware
+# COPY ./src/packages/rmp220_middleware src/rmp220_middleware
 
 # Build package
-RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
-    catkin_make -DCATKIN_WHITELIST_PACKAGES='rmp220_middleware' && \
-    catkin_make
+# RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
+#     catkin_make -DCATKIN_WHITELIST_PACKAGES='rmp220_middleware' && \
+#     catkin_make
 
 # Copy entrypoint script
 COPY ./docker/entrypoint.sh /

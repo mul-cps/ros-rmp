@@ -67,7 +67,7 @@ services:
       rosrun segwayrmp SmartCar"
     restart: unless-stopped
 
-  teleop:
+  teleop: # remap cmd_vel to joy_vel for twist_mux
     extends: base
     devices:
       - /dev/input/js0:/dev/input/js0
