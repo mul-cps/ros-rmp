@@ -61,6 +61,7 @@ COPY ./src/packages/rmp220_middleware src/rmp220_middleware
 
 # Build package
 RUN source /opt/ros/${ROS_DISTRO}/setup.bash && \
+    catkin_make -DCATKIN_WHITELIST_PACKAGES='rmp220_middleware' && \
     catkin_make
 
 # Copy entrypoint script
