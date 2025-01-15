@@ -93,6 +93,10 @@ services:
     extends: base
     depends_on:
       - rsp
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      rosrun move_base move_base"
 
   debug:
     extends: base
