@@ -64,7 +64,7 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      rosrun segwayrmp SmartCar"
+      rosrun segwayrmp SmartCar cmd_vel:=twist_mux/cmd_vel"
     restart: unless-stopped
 
   teleop: # remap cmd_vel to joy_vel for twist_mux
@@ -74,9 +74,9 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      catkin_make -DCATKIN_WHITELIST_PACKAGES='rmp220_middleware' &&
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' &&
       source /rmp_ws/devel/setup.bash &&
-      roslaunch rmp220_middleware teleop.launch"
+      roslaunch cps_rmp220_support teleop.launch"
     restart: unless-stopped
 
   gmapping:
@@ -118,6 +118,7 @@ services:
       bash -c "
       source /rmp_ws/devel/setup.bash &&
       roslaunch cps_rmp220_support rsp.launch"
+    restart: unless-stopped
   
   pose_ekf:
     extends: base
@@ -127,10 +128,36 @@ services:
       bash -c "
       source /rmp_ws/devel/setup.bash &&
       roslaunch cps_rmp220_support robot_pose_ekf.launch"
+  restart: unless-stopped
 
-  lidar_filter:
+  lidar_filter: # must be adapted
     extends: base
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
       roslaunch rmp220_middleware robot_scan_filter.launch"
+    restart: unless-stopped
+
+  twist_mux:
+    extends: base
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      roslaunch twist_mux twist_mux.launch"
+    restart: unless-stopped
+
+  middleware:
+    extends: base
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      rosrun rmp220_middleware rmp220_middleware_extended.py"
+    restart: unless-stopped
+
+  odom_publisher:
+    extends: base
+    command:
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      rosrun cps_rmp220_support encoder_odom_publisher.py"
+    restart: unless-stopped
