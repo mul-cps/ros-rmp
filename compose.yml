@@ -114,6 +114,15 @@ services:
     command: >
       /bin/bash
 
+  tf_tree:
+    extends: base
+    volumes:
+      - ./src:/debug_ws/src
+    command: |
+      /bin/bash -c "
+      cd /debug_ws/src/ &&
+      rosrun tf2_tools view_frames.py"
+
   rviz:
     extends: base
     devices:
