@@ -89,14 +89,14 @@ services:
       source /rmp_ws/devel/setup.bash &&
       rosrun gmapping slam_gmapping scan:=scan_filtered odom:=/robot_pose_ekf/odom_combined base_frame:=base_link odom_frame:=odom"
 
-  amcl:
-    extends: base
-    depends_on:
-      - rsp
-    command: |
-      bash -c "
-      source /rmp_ws/devel/setup.bash &&
-      roslaunch cps_rmp220_support move_base.launch"
+  # amcl:
+  #   extends: base
+  #   depends_on:
+  #     - rsp
+  #   command: |
+  #     bash -c "
+  #     source /rmp_ws/devel/setup.bash &&
+  #     roslaunch cps_rmp220_support move_base.launch"
 
   move_base:
     extends: base
