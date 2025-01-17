@@ -126,8 +126,7 @@ services:
     #   - segway
     command: |
       bash -c "
-      source /rmp_ws/devel/setup.bash &&
-      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' &&
+      apt install ros-noetic-robot-pose-ekf -y &&
       source /rmp_ws/devel/setup.bash &&
       roslaunch cps_rmp220_support robot_pose_ekf.launch"
     restart: unless-stopped
