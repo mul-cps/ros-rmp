@@ -38,6 +38,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-rec
     ros-${ROS_DISTRO}-move-base \
     ros-${ROS_DISTRO}-twist-mux \
     ros-${ROS_DISTRO}-robot-pose-ekf \
+    ros-${ROS_DISTRO}-laser-filters \
     ros-${ROS_DISTRO}-rqt* && \
     echo "Dependencies installed successfully."
 

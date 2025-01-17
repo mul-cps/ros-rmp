@@ -1,0 +1,1 @@
+docker compose up -d segway lidar teleop middleware rsp pose_ekf lidar_filter twist_mux odom_publisher
