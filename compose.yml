@@ -64,7 +64,7 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      rosrun segwayrmp SmartCar cmd_vel:=twist_mux/cmd_vel"
+      rosrun segwayrmp SmartCar cmd_vel:=cmd_vel_out"
     restart: unless-stopped
 
   teleop: # remap cmd_vel to joy_vel for twist_mux
@@ -87,7 +87,16 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      rosrun gmapping slam_gmapping scan:=scan base_frame:=base_link odom_frame:=odom"
+      rosrun gmapping slam_gmapping scan:=scan_filtered odom:=/robot_pose_ekf/odom_combined base_frame:=base_link odom_frame:=odom"
+
+  amcl:
+    extends: base
+    depends_on:
+      - rsp
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      roslaunch cps_rmp220_support move_base.launch"
 
   move_base:
     extends: base
@@ -136,7 +145,7 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      roslaunch rmp220_middleware robot_scan_filter.launch"
+      roslaunch cps_rmp220_support robot_scan_filter.launch"
     restart: unless-stopped
 
   twist_mux:
@@ -152,7 +161,7 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      rosrun rmp220_middleware rmp220_middleware_extended.py"
+      rosrun rmp220_middleware rmp220_middleware_extended.py cmd_vel_mux:=/twist_mux/cmd_vel"
     restart: unless-stopped
 
   odom_publisher:
@@ -161,4 +170,20 @@ services:
       bash -c "
       source /rmp_ws/devel/setup.bash &&
       rosrun cps_rmp220_support encoder_odom_publisher.py"
+    restart: unless-stopped
+
+  save_map:
+    extends: debug
+    command:
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      rosrun map_server map_saver -f /debug_ws/src/maps/newmap"
+    restart: unless-stopped
+
+  serve_map:
+    extends: debug
+    command:
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      rosrun map_server map_server /debug_ws/src/maps/newmap.yaml"
     restart: unless-stopped
