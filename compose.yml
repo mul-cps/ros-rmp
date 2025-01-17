@@ -120,15 +120,17 @@ services:
       roslaunch cps_rmp220_support rsp.launch"
     restart: unless-stopped
   
-  pose_ekf:
+  pose_ekf: # does not work currently?
     extends: base
-    depends_on:
-      - segway
+    # depends_on:
+    #   - segway
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' &&
+      source /rmp_ws/devel/setup.bash &&
       roslaunch cps_rmp220_support robot_pose_ekf.launch"
-  restart: unless-stopped
+    restart: unless-stopped
 
   lidar_filter: # must be adapted
     extends: base
