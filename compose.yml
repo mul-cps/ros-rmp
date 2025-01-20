@@ -81,9 +81,9 @@ services:
 
   gmapping:
     extends: base
-    depends_on:
-      - segway
-      - lidar
+    # depends_on:
+    #   - segway
+    #   - lidar
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
@@ -100,12 +100,22 @@ services:
 
   move_base:
     extends: base
-    depends_on:
-      - rsp
+    # depends_on:
+    #   - rsp
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      roslaunch cps_rmp220_support move_base.launch"
+      roslaunch cps_rmp220_support move_base_core.launch"
+
+  amcl: # does not work currently?
+    extends: base
+    # depends_on:
+    #   - segway
+    command: |
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      roslaunch cps_rmp220_support linus_amcl.launch"
+    restart: unless-stopped
 
   debug:
     extends: base
