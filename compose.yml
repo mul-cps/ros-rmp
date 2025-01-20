@@ -172,6 +172,10 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
+      cd src/cps_rmp220_support &&
+      git pull &&
+      cd ../.. &&
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
       roslaunch twist_mux twist_mux.launch"
     restart: unless-stopped
 
