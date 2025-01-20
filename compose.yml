@@ -74,8 +74,10 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' &&
-      source /rmp_ws/devel/setup.bash &&
+      cd src/cps_rmp220_support &&
+      git pull &&
+      cd ../.. &&
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
       roslaunch cps_rmp220_support teleop.launch"
     restart: unless-stopped
 
@@ -105,6 +107,10 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
+      cd src/cps_rmp220_support &&
+      git pull &&
+      cd ../.. &&
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
       roslaunch cps_rmp220_support move_base_core.launch"
 
   amcl: # does not work currently?
