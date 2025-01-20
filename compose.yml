@@ -182,7 +182,7 @@ services:
       git pull &&
       cd ../.. &&
       catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
-      roslaunch twist_mux twist_mux.launch"
+      roslaunch cps_rmp220_support twist_mux.launch"
     restart: unless-stopped
 
   middleware:
