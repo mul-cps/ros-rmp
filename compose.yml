@@ -148,7 +148,8 @@ services:
       cd src/cps_rmp220_support &&
       git pull &&
       cd ../.. &&
-      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' &&
+      source devel/setup.bash &&
       roslaunch cps_rmp220_support nav_rviz_view.launch"
 
   rsp:
