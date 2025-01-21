@@ -144,11 +144,12 @@ services:
     devices:
       - /dev/dri:/dev/dri
     command: |
+      /bin/bash -c "
       cd src/cps_rmp220_support &&
       git pull &&
       cd ../.. &&
       catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
-      roslaunch cps_rmp220_support nav_rviz_view.launch
+      roslaunch cps_rmp220_support nav_rviz_view.launch"
 
   rsp:
     extends: base
