@@ -140,7 +140,7 @@ services:
       rosrun tf2_tools view_frames.py"
 
   rviz:
-    extends: base
+    extends: debug
     devices:
       - /dev/dri:/dev/dri
     command: >
