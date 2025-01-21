@@ -27,6 +27,7 @@ services:
       - NVIDIA_DRIVER_CAPABILITIES=all
       - ROS_HOSTNAME=192.168.11.233 #100.68.159.16 # must match the ip of the connecting network interface
       - ROS_IP=192.168.11.233 #100.68.159.16
+      - ROS_MASTER_URI="http://192.168.11.233:11311"
     volumes:
       # Allows graphical programs in the container.
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
