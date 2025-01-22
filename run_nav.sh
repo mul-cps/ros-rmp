@@ -1,0 +1,1 @@
+docker compose up -d serve_map amcl move_base

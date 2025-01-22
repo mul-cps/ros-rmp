@@ -223,3 +223,18 @@ services:
       source /rmp_ws/devel/setup.bash &&
       rosrun map_server map_server /debug_ws/src/maps/newmap.yaml"
     restart: unless-stopped
+  
+  
+  realsense:
+    extends: base
+    volumes:
+      - /dev:/dev
+    device_cgroup_rules:
+      - 'c 81:* rmw'
+      - 'c 189:* rmw'
+    privileged: true
+    command:
+      bash -c "
+      source /rmp_ws/devel/setup.bash &&
+      roslaunch realsense2_camera rs_camera.launch"
+    restart: unless-stopped
