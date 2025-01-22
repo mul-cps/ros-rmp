@@ -224,7 +224,7 @@ services:
     command:
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      rosrun map_server map_server /debug_ws/src/maps/newmap.yaml"
+      rosrun map_server map_server /debug_ws/src/maps/map_basement_new.yaml"
     restart: unless-stopped
   
   
