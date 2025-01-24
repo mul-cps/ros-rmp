@@ -110,10 +110,7 @@ services:
       source /rmp_ws/devel/setup.bash &&
       cd src/cps_rmp220_support &&
       git pull &&
-      cd ../RMP1.0_catkin_ws &&
-      git pull &&
       cd ../.. &&
-      catkin_make -DCATKIN_WHITELIST_PACKAGES='segwayrmp' &&
       catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
       roslaunch cps_rmp220_support move_base_core.launch"
 
