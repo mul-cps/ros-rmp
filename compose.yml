@@ -25,8 +25,8 @@ services:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
       - NVIDIA_DRIVER_CAPABILITIES=all
-      - ROS_HOSTNAME=192.168.11.233 #100.68.159.16 # must match the ip of the connecting network interface
-      - ROS_IP=192.168.11.233 #100.68.159.16
+      # - ROS_HOSTNAME=192.168.11.233 #100.68.159.16 # must match the ip of the connecting network interface
+      # - ROS_IP=192.168.11.233 #100.68.159.16
       #- ROS_MASTER_URI="http://192.168.11.233:11311"
     volumes:
       # Allows graphical programs in the container.
@@ -110,10 +110,7 @@ services:
       source /rmp_ws/devel/setup.bash &&
       cd src/cps_rmp220_support &&
       git pull &&
-      cd ../RMP1.0_catkin_ws &&
-      git pull &&
       cd ../.. &&
-      catkin_make -DCATKIN_WHITELIST_PACKAGES='segwayrmp' &&
       catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
       roslaunch cps_rmp220_support move_base_core.launch"
 
