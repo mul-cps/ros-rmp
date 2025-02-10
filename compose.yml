@@ -35,8 +35,8 @@ services:
     restart: no
     ulimits:
       nofile:
-        soft: "65536"
-        hard: "65536"
+        soft: "4096" #"65536"
+        hard: "4096" #"65536"
 
     # lidar
   lidar:
