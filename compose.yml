@@ -111,7 +111,7 @@ services:
       cd src/cps_rmp220_support &&
       git pull &&
       cd ../.. &&
-      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support'
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' &&
       roslaunch cps_rmp220_support move_base_core.launch"
 
   amcl: # does not work currently?
@@ -121,6 +121,10 @@ services:
     command: |
       bash -c "
       source /rmp_ws/devel/setup.bash &&
+      cd src/cps_rmp220_support &&
+      git pull &&
+      cd ../.. &&
+      catkin_make -DCATKIN_WHITELIST_PACKAGES='cps_rmp220_support' &&
       roslaunch cps_rmp220_support linus_amcl.launch"
     restart: unless-stopped
 
@@ -221,7 +225,7 @@ services:
     command:
       bash -c "
       source /rmp_ws/devel/setup.bash &&
-      rosrun map_server map_server /debug_ws/src/maps/map_basement_new.yaml"
+      rosrun map_server map_server /debug_ws/src/maps/map_basement_05.02.25.yaml"
     restart: unless-stopped
   
   
